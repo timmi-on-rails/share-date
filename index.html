@@ -9,8 +9,7 @@
 				if (navigator.share) {
 				navigator.share({
 						title: 'Web Fundamentals',
-						text: 'Check out Web Fundamentals — it rocks!',
-						url: 'https://developers.google.com/web',
+						text: 'Check out Web Fundamentals — it rocks!'
 				})
 					.then(() => alert('Successful share'))
 					.catch((error) => alert(error));
@@ -18,5 +17,6 @@
 			}
 		</script>
 		<button onclick="share()">share</button>
+		<a href="data:application/octet-stream;charset=utf-16le;base64,//5mAG8AbwAgAGIAYQByAAoA">text file</a>
 	</body>
 </html>
