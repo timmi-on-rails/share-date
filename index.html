@@ -5,15 +5,18 @@
 	
 	<body>
 		<script>
-			if (navigator.share) {
-			navigator.share({
-					title: 'Web Fundamentals',
-					text: 'Check out Web Fundamentals — it rocks!',
-					url: 'https://developers.google.com/web',
-			})
-				.then(() => alert('Successful share'))
-				.catch((error) => alert(error));
-			} else alert('no share')
+			function share() {
+				if (navigator.share) {
+				navigator.share({
+						title: 'Web Fundamentals',
+						text: 'Check out Web Fundamentals — it rocks!',
+						url: 'https://developers.google.com/web',
+				})
+					.then(() => alert('Successful share'))
+					.catch((error) => alert(error));
+				} else alert('no share')
+			}
 		</script>
+		<button onclick="share()">share</button>
 	</body>
 </html>
