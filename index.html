@@ -1,33 +1,14 @@
+<!DOCTYPE html>
 <html>
 	<head>
+		<link rel="stylesheet" type="text/css" href="app.css">
 		<script src="app.js"></script>
 	</head>
 
 	<body>
 		<script>
-
 			window.onload = function () {
-				const urlParams = new URLSearchParams(window.location.search)
-
-				if (urlParams.has('data')) {
-					const dataBase64 = urlParams.get('data')
-					const dataBinary = new DataView(_base64ToArrayBuffer(dataBase64))
-
-					const version = dataBinary.getUint8(0)
-					const start = new Date(dataBinary.getUint32(1) * 1000).toLocaleString()
-					const end = new Date(dataBinary.getUint32(5) * 1000).toLocaleString()
-					const description = String.fromCharCode.apply(null, new Uint8Array(_base64ToArrayBuffer(dataBase64, 9)))
-
-					console.log("version: " + version)
-					console.log("start: " + start)
-					console.log("end: " + end)
-					console.log("description: " + description)
-				} else {
-
-				}
-				
-		document.body.innerHTML = renderShow();
-
+				document.body.innerHTML = renderBody(window.location.search);
 			}
 			
 			function share() {
@@ -37,8 +18,8 @@
 						text: 'Check out Web Fundamentals — it rocks!',
 						url: 'data:application/octet-stream;charset=utf-16le;base64,//5mAG8AbwAgAGIAYQByAAoA'
 				})
-					.then(() => alert('Successful share'))
-					.catch((error) => alert(error));
+					.then(function() { alert('Successful share') })
+					.catch(function(error) { alert(error) });
 				} else alert('no share')
 			}
 		</script>

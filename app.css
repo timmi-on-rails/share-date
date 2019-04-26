@@ -1,0 +1,7 @@
+body {
+	max-width: 400px
+}
+
+div.center, p.center {
+	text-align: center
+}
