@@ -92,6 +92,7 @@ function renderShowEvent(event) {
 	}
 
 	html += '<a href="javascript:download()">download</a>'
+	html += '<a href="javascript:window.location.href=\'data:text/calendar,hey\'">download</a>'
 
 	return html
 }
