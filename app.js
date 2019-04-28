@@ -28,6 +28,42 @@ function renderRoot(model) {
 	}
 }
 
+function download() {
+	var blob = new Blob([
+		"BEGIN:VCALENDAR\n" + 
+		"VERSION:2.0\n" +
+		"PRODID:-//www.timebutler.de//iCal 4.0.3//EN\n" +
+		"METHOD:PUBLISH\n" +
+		"CALSCALE:GREGORIAN\n" +
+		"BEGIN:VEVENT\n" +
+		"CREATED:20190428T112253\n" +
+		"UID:ical-4560109-timebutler-de\n" +
+		"DTEND;VALUE=DATE:20190419T000000\n" +
+		"TRANSP:TRANSPARENT\n" +
+		"SUMMARY:Anwesend in Dresden\n" +
+		"DESCRIPTION:Testbeschreibung\n" +
+		"DTSTART;VALUE=DATE:20190416T000000\n" +
+		"DTSTAMP:20190428T112253\n" +
+		"CATEGORIES:timebutler.de\n" +
+		"X-MICROSOFT-CDO-BUSYSTATUS:OOF\n" +
+		"SEQUENCE:8\n" +
+		"END:VEVENT\n" +
+		"END:VCALENDAR\n"
+	], { type: 'text/calendar' });
+	if (window.navigator.msSaveBlob) { // // IE hack; see http://msdn.microsoft.com/en-us/library/ie/hh779016.aspx
+		console.log("fix")
+		window.navigator.msSaveOrOpenBlob(blob, 'exportData' + new Date().toDateString() + '.ics');
+	}
+	else {
+		var a = window.document.createElement("a");
+		a.href = window.URL.createObjectURL(blob, { type: "text/calendar" });
+		a.download = "exportData" + new Date().toDateString() + ".ics";
+		document.body.appendChild(a);
+		a.click();  // IE: "Access is denied"; see: https://connect.microsoft.com/IE/feedback/details/797361/ie-10-treats-blob-url-as-cross-origin-and-denies-access
+		document.body.removeChild(a);
+	}
+}
+
 function renderShowEvent(event) {
 	const startDate = event.start.toLocaleDateString()
 	const startTime = event.start.toLocaleTimeString([], { hour: '2-digit', minute:'2-digit' })
@@ -54,6 +90,8 @@ function renderShowEvent(event) {
 			html += '<div class="center">' + startTime + '</div>'
 		}
 	}
+
+	html += '<a href="javascript:download()">download</a>'
 
 	return html
 }
